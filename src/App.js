@@ -1,6 +1,10 @@
 import React, {Component} from "react";
 import './App.css';
 
+const numbers = Array(9).fill(0).map( (e,i) => {return i+1 } )
+const actions = ['/', '*', '-', '+']
+const final = [ {value: "=" , event: "{this.buttonPressAns}"},{value:"Clear", event: "{this.buttonPressClear}"},{value: "C",event:"{this.buttonPressC}"}  ]
+
 class App extends Component {
   constructor(props){
     super(props);
@@ -48,35 +52,24 @@ class App extends Component {
          <input type="text" value={this.state.inputvalue}></input> 
       </div>
       <div className= "buttons">
-        <div className = "buttonGrp1">
-        <button type="button" value = "1" onClick= {this.buttonPress1}>1</button>
-        <button type="button" value = "2" onClick= {this.buttonPress1}>2</button>
-        <button type="button" value = "3" onClick= {this.buttonPress1}>3</button>
-        <button type="button"  onClick= {this.buttonPressAns}>=</button>
-        </div>
-        <div className = "buttonGrp2">
-        <button type="button" value = "4" onClick= {this.buttonPress1}>4</button>
-        <button type="button" value = "5" onClick= {this.buttonPress1}>5</button>
-        <button type="button" value = "6" onClick= {this.buttonPress1}>6</button>
-        <button type="button" value = "+" onClick= {this.buttonPress1}>+</button>
-        </div>
-        <div className = "buttonGrp3">
-        <button type="button" value = "7" onClick= {this.buttonPress1}>7</button>
-        <button type="button" value = "8" onClick= {this.buttonPress1}>8</button>
-        <button type="button" value = "9" onClick= {this.buttonPress1}>9</button>
-        <button type="button" value = "-" onClick= {this.buttonPress1}>-</button>
-        </div>
-        <div className = "buttonGrp4">
-        <button type="button" value = "*" onClick= {this.buttonPress1}>*</button>
-        <button type="button" value = "0" onClick= {this.buttonPress1}>0</button>
-        <button type="button" value = "/" onClick= {this.buttonPress1}>/</button>
-        <button type="button"  onClick= {this.buttonPressC}>C</button>
-        </div>
-        <div className = "buttonGrp5">
+          {
+             numbers.map( (item) => {
+               return <button value = {item} onClick={this.buttonPress1}>{item}</button>
+             } )
+          }
+        
+      </div>
+      <div className="buttonsAction">
+            {
+              actions.map( (act)=> {
+                return <button value = {act} onClick = {this.buttonPress1}>{act}</button>
+              } )
+            }
+      </div>
+      <div className = "buttonAns"> 
         <button type="button"  onClick= {this.buttonPressClear}>Clear</button>
         <button type="button"  onClick= {this.buttonPressHist}>Hist</button>
-        </div>
-        
+        <button type="button"  onClick= {this.buttonPressAns}>=</button>
       </div>
     </div>
   );
