@@ -6,11 +6,14 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state= {
-      // history: [],
+      history: [],
       input: "",
-      currentAction: ''
+      currentAction: '',
+      inputValue : "",
+      display: true
     }
     this.evaluate = this.evaluate.bind(this)
+    this.history = this.history.bind(this)
   }
 
   numberHandler(number) {
@@ -29,21 +32,45 @@ class App extends Component {
   }
   
   evaluate() {
+    var a = new Date();
+
+    var date = a.getFullYear()+"/"+a.getMonth()+"/"+a.getDate();
+    console.log(date)
+    var newArr = [...this.state.history, {value1 : this.state.input, value2: eval(this.state.input),date: date }]
+    console.log(newArr)
     try {
       // console.log('this.state.input', this.state.input)
-      this.setState({ input: eval(this.state.input).toString() })
+
+      this.setState({ input: eval(this.state.input).toString(),
+        history: newArr
+       })
+      
     }
     catch (err) {
       // console.log('there was an err', err)
     }
+  }
+  history(){
+    // console.log(this.state.history)
+    //   this.setState({
+    //     inputValue : this.state.history.map( value => {
+    //     return value.value1+"="+value.value2+"("+value.date+")"
+    //     })
+    //  })
+    let arr = this.state.display
+    console.log(arr)
+    arr = !arr
+    this.setState({display: arr})
   }
 
   render(){
     console.log('this.state', this.state);
 
     return (
-      <div className="App"> 
-        <input type="text" value={this.state.input} readOnly></input> 
+    <div className="App"> 
+      
+      <div className ="buttonGrp">
+        <input type="text" value={this.state.input} readOnly></input>
         {
           numbers.map(val => <button key={val} onClick={() => this.numberHandler(val)}>{val}</button>)
         }
@@ -51,7 +78,15 @@ class App extends Component {
           actions.map(action => <button key={action} onClick={() => this.actionHandler(action)}>{action}</button>)
         }
         <button onClick={this.evaluate}>=</button>
+        <button onClick= {this.history}>Hist</button>
       </div>
+      <div>
+      {
+    this.state.history.map( hist => { return <p className={this.state.display? "hisP":"hisN"}>{hist.value1}={hist.value2} ({hist.date})</p>} )
+      }
+      </div>
+      
+    </div>
     );
   }
 }

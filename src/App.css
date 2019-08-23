@@ -31,7 +31,7 @@
     transform: rotate(360deg);
   }
 }
-.buttonGrp1 button{
+.buttonGrp button{
   height: 30px;
   width: 42px;
 }
@@ -51,6 +51,20 @@
   height: 30px;
   width: 84px;
 }
-.input input{
+.App input{
   height: 25px;
+  width: 163px;;
+}
+.App{
+  width: 170px;
+  height: 200px;
+  
+  
+  flex-wrap: wrap;
+}
+.hisP{
+  display: none;
+}
+.hisN{
+  display: block;
 }
