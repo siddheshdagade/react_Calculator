@@ -14,6 +14,8 @@ class App extends Component {
     }
     this.evaluate = this.evaluate.bind(this)
     this.history = this.history.bind(this)
+    this.Clear = this.Clear.bind(this)
+    this.Move = this.Move.bind(this)
   }
 
   numberHandler(number) {
@@ -40,8 +42,7 @@ class App extends Component {
     console.log(newArr)
     try {
       // console.log('this.state.input', this.state.input)
-
-      this.setState({ input: eval(this.state.input).toString(),
+        this.setState({ input: eval(this.state.input).toString(),
         history: newArr
        })
       
@@ -57,11 +58,26 @@ class App extends Component {
     //     return value.value1+"="+value.value2+"("+value.date+")"
     //     })
     //  })
-    let arr = this.state.display
+    let arr = this.state.display 
     console.log(arr)
     arr = !arr
     this.setState({display: arr})
+    //this all statements in history function are use to change css for display history
   }
+  Clear(){
+    this.setState({
+      input: ""
+    })
+  }
+  Move(value1,i){
+    console.log(value1,i);
+    let a = value1;
+    console.log(a);
+    this.setState({
+      input:a
+    })
+  }
+
 
   render(){
     console.log('this.state', this.state);
@@ -79,10 +95,11 @@ class App extends Component {
         }
         <button onClick={this.evaluate}>=</button>
         <button onClick= {this.history}>Hist</button>
+        <button onClick={this.Clear}>Clear</button>
       </div>
       <div>
       {
-    this.state.history.map( hist => { return <p className={this.state.display? "hisP":"hisN"}>{hist.value1}={hist.value2} ({hist.date})</p>} )
+        this.state.history.map( (hist,index) => { return <p className={this.state.display? "hisP":"hisN"} onClick ={() => this.Move(hist.value1,index)}>{hist.value1}={hist.value2} ({hist.date})</p>} )
       }
       </div>
       
