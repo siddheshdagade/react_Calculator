@@ -92,6 +92,8 @@ class App extends Component {
     console.log('this.state', this.state);
 
     return (
+      
+      <CSSTransition in={true} appear={true} timeout={2000} classNames="calDisp" >
     <div className="App"> 
       
       <div className ="buttonGrp">
@@ -122,6 +124,7 @@ class App extends Component {
       </div>
       
     </div>
+    </CSSTransition>
     );
   }
 }

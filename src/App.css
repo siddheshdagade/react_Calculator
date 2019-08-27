@@ -29,9 +29,18 @@
 }
 .alert-enter {
   opacity: 0.01;
+  color: black;
   
 }
 .alert-enter-active{
   opacity: 1;
-  transition: opacity 2000ms ease-in 500ms;
+  transition:  opacity 2000ms ease-in 500ms;
+  
+}
+.calDisp-appear{
+  opacity: 0.01;
+}
+.calDisp-appear-active{
+  opacity: 1;
+  transition: opacity 2000ms linear
 }
