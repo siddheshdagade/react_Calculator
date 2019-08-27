@@ -1,6 +1,11 @@
-import React, {Component} from "react";
+import React, {Component, useState} from "react";
 import { numbers, actions } from './data/calcData';
 import './App.css';
+import moment from "moment";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+
+
+
 
 class App extends Component {
   constructor(props){
@@ -26,7 +31,7 @@ class App extends Component {
     let input = this.state.input,
         lastChar = input ? input.charAt(input.length - 1) : null;
     // input should exist and previously entered value should not be an action
-    if(input && !actions.includes(lastChar)) {
+    if(input && !actions.includes(lastChar) || lastChar == '0') {
       this.setState({ currentAction: action, 
                       input: `${input}${action}`
                     })
@@ -34,9 +39,12 @@ class App extends Component {
   }
   
   evaluate() {
+    let input = this.state.input,
+    lastchar = input ? input.charAt(input.length - 1): null;
+    if(!actions.includes(lastchar) || lastchar=='0'){
     var a = new Date();
-
-    var date = a.getFullYear()+"/"+a.getMonth()+"/"+a.getDate();
+    // var date = a.getFullYear()+"/"+a.getMonth()+"/"+a.getDate();
+    var date = moment().format("MMM Do YY"); //use moment.js library for date multiple formats
     console.log(date)
     var newArr = [...this.state.history, {value1 : this.state.input, value2: eval(this.state.input),date: date }]
     console.log(newArr)
@@ -50,6 +58,7 @@ class App extends Component {
     catch (err) {
       // console.log('there was an err', err)
     }
+  }
   }
   history(){
     // console.log(this.state.history)
@@ -98,9 +107,18 @@ class App extends Component {
         <button onClick={this.Clear}>Clear</button>
       </div>
       <div>
+        <TransitionGroup>
       {
-        this.state.history.map( (hist,index) => { return <p className={this.state.display? "hisP":"hisN"} onClick ={() => this.Move(hist.value1,index)}>{hist.value1}={hist.value2} ({hist.date})</p>} )
+        
+        this.state.history.map( (hist,index) => { return <CSSTransition  
+        key={index}
+        in={true} 
+        timeout={2500} 
+        classNames="alert">
+        <p className={this.state.display? "hisP":"hisN"} onClick ={() => this.Move(hist.value1,index)} key={hist.value2}>{hist.value1}={hist.value2} ({hist.date})</p></CSSTransition>} )
+        //in above code flipmove(transition styling) is not working.
       }
+        </TransitionGroup>
       </div>
       
     </div>

@@ -1,12 +1,12 @@
 
 .buttonGrp button{
   height: 30px;
-  width: 43px;
+  width: 57px;
 
 }
 .App input{
   height: 25px;
-  width: 168px;;
+  width: 167px;;
 }
 .App{
   width: 172px;
@@ -20,4 +20,18 @@
 .hisN{
   width: 170px;
   display: block;
+  
+}
+.hisN:hover {
+  width: 170px;
+  display: block;
+
+}
+.alert-enter {
+  opacity: 0.01;
+  
+}
+.alert-enter-active{
+  opacity: 1;
+  transition: opacity 2000ms ease-in 500ms;
 }
